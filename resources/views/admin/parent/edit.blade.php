@@ -1,0 +1,48 @@
+@extends('layouts.admin')
+
+@section('title', 'تعديل بيانات الطالب')
+@section('main_title_content', 'تعديل بيانات الطالب')
+@section('title_content', 'تعديل')
+@section('link_content')
+    <a href="{{ route('parents') }}">جميع الطلاب</a>
+@endsection
+
+@section('content')
+    <div class="card mt-4 shadow-sm">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">تعديل بيانات الطالب</h5>
+            <a href="{{ route('parents') }}" class="btn btn-secondary btn-sm">رجوع</a>
+        </div>
+
+        <div class="card-body">
+
+            <form action="{{ route('parents.update', $parent->id) }}" method="POST">
+                @csrf
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">الاسم الكامل</label>
+                        <input type="text" name="name" class="form-control" placeholder="ادخل اسم الطالب"
+                            value="{{ old('name', $parent->name) }}" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">رقم الهاتف</label>
+                        <input type="text" name="phone" class="form-control" placeholder="ادخل رقم الهاتف"
+                            value="{{ old('phone', $parent->phone) }}" required>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">البريد الإلكتروني</label>
+                        <input type="email" name="email" class="form-control" placeholder="example@email.com"
+                            value="{{ old('email', $parent->email) }}" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary px-4">حفظ التعديلات</button>
+            </form>
+        </div>
+    </div>
+@endsection
