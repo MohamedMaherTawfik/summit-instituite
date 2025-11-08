@@ -69,7 +69,8 @@
                         <a class="dropdown-item {{ request()->is('dashboard/user*') ? 'active' : '' }}"
                             href="{{ route('parents') }}">
                             جميع اولياء الامور </a>
-                        <a class="dropdown-item {{ request()->is('dashboard/user*') ? 'active' : '' }}" href="">
+                        <a class="dropdown-item {{ request()->is('dashboard/user*') ? 'active' : '' }}"
+                            href="{{ route('teachers') }}">
                             جميع الأساتذه </a>
 
                     </div>

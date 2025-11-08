@@ -35,10 +35,10 @@ Route::prefix('/dashboard')->group(function () {
     Route::post('/admin/students/all/parents/{parent}/update', [parentController::class, 'update'])->name('parents.update');
     Route::delete('/admin/students/all/parents/{parent}/delete', [parentController::class, 'delete'])->name('parents.delete');
 
-    Route::get('/students', [teacherController::class, 'index'])->name('students');
-    Route::get('/students/create', [teacherController::class, 'create'])->name('students.create');
-    Route::post('/students/store', [teacherController::class, 'store'])->name('students.store');
-    Route::get('/students/edit/{student}', [teacherController::class, 'edit'])->name('students.edit');
-    Route::post('/students/update/{student}', [teacherController::class, 'update'])->name('students.update');
-    Route::delete('/students/delete/{student}', [teacherController::class, 'delete'])->name('students.delete');
+    Route::get('/teachers', [teacherController::class, 'index'])->name('teachers');
+    Route::get('/teachers/create', [teacherController::class, 'create'])->name('teachers.create');
+    Route::post('/teachers/store', [teacherController::class, 'store'])->name('teachers.store');
+    Route::get('/teachers/edit/{teacher}', [teacherController::class, 'edit'])->name('teachers.edit');
+    Route::post('/teachers/update/{teacher}', [teacherController::class, 'update'])->name('teachers.update');
+    Route::delete('/teachers/delete/{teacher}', [teacherController::class, 'delete'])->name('teachers.delete');
 })->middleware(['auth', admin::class]);
