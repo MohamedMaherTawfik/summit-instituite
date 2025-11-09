@@ -47,6 +47,22 @@
                     </div>
                 </div>
 
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="class_id" class="form-label">اختر الشعبة</label>
+                        <select name="class_id" id="class_id" class="form-select" required>
+                            <option value="" disabled selected>اختر الشعبة</option>
+                            @foreach ($classes as $class)
+                                <option value="{{ $class->id }}">{{ $class->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+
+
+
                 <button type="submit" class="btn btn-primary px-4">حفظ التعديلات</button>
             </form>
         </div>

@@ -52,8 +52,29 @@
             @endif
 
 
+            <!-- إدارة المعهد -->
+            @if (Auth::user()->role == 'manager' || Auth::user()->role == 'guide' || Auth::user()->role == 'teacher')
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle {{ request()->is('dashboard/user*') || request()->is('dashboard/lawyer*') || request()->is('dashboard/client*') || request()->is('dashboard/request*') || request()->is('dashboard/action*') || request()->is('dashboard/visit*') ? 'active' : '' }}"
+                        href="#" data-toggle="dropdown">
+                        اعدادات المعهد
+                    </a>
+                    <div class="dropdown-menu ">
+                        @if (Auth::user()->role == 'manager' || Auth::user()->role == 'guide')
+                            <a class="dropdown-item {{ request()->is('dashboard/user*') ? 'active' : '' }}"
+                                href="{{ route('classes') }}">
+                                جميع الشعب</a>
+                        @endif
+                        <a class="dropdown-item {{ request()->is('dashboard/user*') ? 'active' : '' }}"
+                            href="{{ route('attendances') }}">
+                            الحضور</a>
+
+                    </div>
+                </li>
+            @endif
+
             <!-- إدارة المستخدمين -->
-            @if (Auth::user()->role == 'manager' || Auth::user()->role == 'guide')
+            @if (Auth::user()->role == 'manager' || Auth::user()->role == 'guide' || Auth::user()->role == 'teacher')
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle {{ request()->is('dashboard/user*') || request()->is('dashboard/lawyer*') || request()->is('dashboard/client*') || request()->is('dashboard/request*') || request()->is('dashboard/action*') || request()->is('dashboard/visit*') ? 'active' : '' }}"
                         href="#" data-toggle="dropdown">
@@ -62,16 +83,36 @@
                     <div class="dropdown-menu ">
                         <a class="dropdown-item {{ request()->is('dashboard/user*') ? 'active' : '' }}"
                             href="{{ route('students') }}">
-                            جميع المستخدمين </a>
-                        <a class="dropdown-item {{ request()->is('dashboard/user*') ? 'active' : '' }}"
-                            href="{{ route('students') }}">
                             جميع الطلاب </a>
                         <a class="dropdown-item {{ request()->is('dashboard/user*') ? 'active' : '' }}"
                             href="{{ route('parents') }}">
                             جميع اولياء الامور </a>
+
+                        @if (Auth::user()->role == 'manager' || Auth::user()->id == 'guide')
+                            <a class="dropdown-item {{ request()->is('dashboard/user*') ? 'active' : '' }}"
+                                href="{{ route('teachers') }}">
+                                جميع الأساتذه </a>
+                        @endif
+                    </div>
+                </li>
+            @endif
+
+            <!-- إدارة الحسابات -->
+            @if (Auth::user()->role == 'manager' || Auth::user()->role == 'accountant')
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle {{ request()->is('dashboard/user*') || request()->is('dashboard/lawyer*') || request()->is('dashboard/client*') || request()->is('dashboard/request*') || request()->is('dashboard/action*') || request()->is('dashboard/visit*') ? 'active' : '' }}"
+                        href="#" data-toggle="dropdown">
+                        الحسابات
+                    </a>
+                    <div class="dropdown-menu ">
                         <a class="dropdown-item {{ request()->is('dashboard/user*') ? 'active' : '' }}"
-                            href="{{ route('teachers') }}">
-                            جميع الأساتذه </a>
+                            href="{{ route('students') }}">
+                            جميع الحسابات </a>
+
+                        <a class="dropdown-item {{ request()->is('dashboard/user*') ? 'active' : '' }}"
+                            href="{{ route('students') }}">
+                            الاقساط </a>
+
 
                     </div>
                 </li>

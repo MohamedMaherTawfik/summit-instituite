@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\student;
 
 use App\Http\Controllers\Controller;
+use App\Models\attendances;
+use App\Models\classes;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -11,12 +13,16 @@ class studentController extends Controller
     public function index()
     {
         $students = User::where('role', 'student')->get();
-        return view('admin.student.index', compact('students'));
+        $classes = Classes::all();
+        $academicYears = $students->pluck('academic_year')->unique()->filter()->values();
+        return view('admin.student.index', compact('students', 'classes', 'academicYears'));
     }
+
 
     public function create()
     {
-        return view('admin.student.create');
+        $classes = classes::all();
+        return view('admin.student.create', compact('classes'));
     }
 
     public function store(Request $request)
@@ -27,6 +33,7 @@ class studentController extends Controller
             'email' => 'required|email|unique:users,email',
             'academic_stage' => 'nullable|string|max:255',
             'password' => 'required|string|min:6',
+            'class_id' => 'required',
         ]);
         $data = $request->except('_token');
         $data['role'] = 'student';
@@ -40,19 +47,15 @@ class studentController extends Controller
             'role' => $data['role'] ?? '-',
             'password_seen' => $data['password_seen'] ?? '-',
             'academic_year' => $data['academic_stage'] ?? '-',
+            'classes_id' => $data['class_id'] ?? '-',
         ]);
         return redirect()->route('students')->with('success', 'تم  انشاء الطالب بنجاح');
     }
 
-    public function show(User $student)
-    {
-        return view('admin.student.show', compact('student'));
-    }
-
-
     public function edit(User $student)
     {
-        return view('admin.student.edit', compact('student'));
+        $classes = classes::all();
+        return view('admin.student.edit', compact('student', 'classes'));
     }
 
 
@@ -63,7 +66,8 @@ class studentController extends Controller
             'name' => $data['name'],
             'academic_year' => $data['academic_stage'],
             'phone' => $data['phone'],
-            'email' => $data['email']
+            'email' => $data['email'],
+            'classes_id' => $data['class_id'],
         ]);
         return redirect()->route('students')->with('success', 'تم تعديل بيانات الطالب بنجاح');
     }
@@ -72,5 +76,11 @@ class studentController extends Controller
     {
         $student->delete();
         return redirect()->route('students')->with('success', 'تم حذف الطالب بنجاح');
+    }
+
+    public function attendances(User $student)
+    {
+        $attendances = attendances::where('student_id', $student->id)->get();
+        return view('admin.student.attendances', compact('attendances'));
     }
 }

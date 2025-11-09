@@ -58,16 +58,29 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label class="form-label">المرحلة الدراسية</label>
+                        <label class="form-label">الصف</label>
                         <input type="text" name="academic_stage" class="form-control" placeholder="المرحله الدراسيه"
                             value="{{ old('academic_stage') }}" required>
                     </div>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label">كلمة المرور</label>
-                    <input type="password" name="password" class="form-control" placeholder="ادخل كلمة المرور" required>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">كلمة المرور</label>
+                        <input type="password" name="password" class="form-control" placeholder="ادخل كلمة المرور" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="class_id" class="form-label">اختر الشعبة</label>
+                        <select name="class_id" id="class_id" class="form-select" required>
+                            <option value="" disabled selected>اختر الشعبة</option>
+                            @foreach ($classes as $class)
+                                <option value="{{ $class->id }}">{{ $class->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
+
 
                 <button type="submit" class="btn btn-success px-4">إضافة الطالب</button>
             </form>

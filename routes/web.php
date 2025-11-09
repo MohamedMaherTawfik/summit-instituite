@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\admin\AuthController;
+use App\Http\Controllers\admin\ClassesController;
 use App\Http\Controllers\admin\dashboardController;
 use App\Http\Controllers\admin\parentController;
 use App\Http\Controllers\admin\teacherController;
 use App\Http\Controllers\student\studentController;
+use App\Http\Controllers\teacher\attendanceController;
 use App\Http\Middleware\admin;
 use Illuminate\Support\Facades\Route;
 
@@ -18,10 +20,11 @@ Route::prefix('')->group(function () {
 
 
 
-Route::prefix('/dashboard')->group(function () {
+Route::prefix('/dashboard')->middleware(['auth', admin::class])->group(function () {
     Route::get('/', [dashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/students', [studentController::class, 'index'])->name('students');
+    Route::get('/students/attendances/{student}', [studentController::class, 'attendances'])->name('students.attendances');
     Route::get('/students/create', [studentController::class, 'create'])->name('students.create');
     Route::post('/students/store', [studentController::class, 'store'])->name('students.store');
     Route::get('/students/edit/{student}', [studentController::class, 'edit'])->name('students.edit');
@@ -41,4 +44,14 @@ Route::prefix('/dashboard')->group(function () {
     Route::get('/teachers/edit/{teacher}', [teacherController::class, 'edit'])->name('teachers.edit');
     Route::post('/teachers/update/{teacher}', [teacherController::class, 'update'])->name('teachers.update');
     Route::delete('/teachers/delete/{teacher}', [teacherController::class, 'delete'])->name('teachers.delete');
-})->middleware(['auth', admin::class]);
+
+    Route::get('/classes', [ClassesController::class, 'index'])->name('classes');
+    Route::post('/classes/create/store', [ClassesController::class, 'store'])->name('classes.store');
+    Route::post('/classes/edit/{class}', [ClassesController::class, 'update'])->name('classes.update');
+    Route::delete('/classes/delete/{class}', [ClassesController::class, 'delete'])->name('classes.delete');
+
+    Route::get('/attendances', [attendanceController::class, 'index'])->name('attendances');
+    Route::get('/attendances/create', [attendanceController::class, 'index'])->name('attendances.create');
+    Route::post('/attendances/store', [attendanceController::class, 'store'])->name('attendances.store');
+    Route::delete('/attendances/delete/{attendance}', [attendanceController::class, 'delete'])->name('attendances.delete');
+});
