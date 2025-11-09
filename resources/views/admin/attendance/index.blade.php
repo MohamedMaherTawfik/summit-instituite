@@ -2,10 +2,6 @@
 
 @section('title', 'كل الحضور في المعهد')
 @section('main_title_content', 'كل الحضور في المعهد')
-@section('title_content', 'عرض')
-@section('link_content')
-    <a href="{{ route('attendances') }}">كل الحضور في المعهد</a>
-@endsection
 
 @section('content')
     <div class="card mt-4 shadow-sm">

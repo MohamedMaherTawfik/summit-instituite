@@ -1,33 +1,36 @@
 @extends('layouts.admin')
 
-@section('title', 'جميع الشعب في المعهد')
-@section('main_title_content', 'جميع الشعب في المعهد')
+@section('title', 'جميع الدورات في المعهد')
+@section('main_title_content', 'جميع الدورات في المعهد')
+
 
 @section('content')
     <div class="card mt-4 shadow-sm">
         <div class="card-header d-flex justify-content-between align-items-center">
             <!-- زر فتح مودال الإضافة -->
             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addClassModal">
-                + إضافة شعبة جديدة
+                + إضافة دوره جديدة
             </button>
         </div>
 
         <div class="card-body">
-            @if ($classes->count() > 0)
+            @if ($courses->count() > 0)
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped align-middle">
                         <thead class="table-light">
                             <tr class="text-center">
-                                <th>رقم الشعبه</th>
+                                <th>رقم الدوره</th>
                                 <th>الاسم</th>
+                                <th>الوصف</th>
                                 <th>التحكم</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($classes as $index => $class)
+                            @foreach ($courses as $index => $class)
                                 <tr>
                                     <td class="text-center">{{ $index + 1 }}</td>
                                     <td class="text-center">{{ $class->name }}</td>
+                                    <td class="text-center">{{ $class->description }}</td>
                                     <td class="text-center">
 
                                         <!-- زر فتح مودال التعديل -->
@@ -37,8 +40,8 @@
                                         </button>
 
                                         <!-- فورم الحذف -->
-                                        <form action="{{ route('classes.delete', $class->id) }}" method="POST"
-                                            class="d-inline" onsubmit="return confirm('هل أنت متأكد من حذف هذه الشعبة؟');">
+                                        <form action="{{ route('courses.delete', $class->id) }}" method="POST"
+                                            class="d-inline" onsubmit="return confirm('هل أنت متأكد من حذف هذه الدوره؟');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger">حذف</button>
@@ -54,18 +57,24 @@
                                         <div class="modal-content">
                                             <div class="modal-header bg-warning text-white">
                                                 <h5 class="modal-title" id="editClassModalLabel-{{ $class->id }}">
-                                                    تعديل الشعبة
+                                                    تعديل الدوره
                                                 </h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
-                                            <form action="{{ route('classes.update', $class->id) }}" method="POST">
+                                            <form action="{{ route('courses.update', $class->id) }}" method="POST">
                                                 @csrf
                                                 <div class="modal-body">
                                                     <div class="mb-3">
-                                                        <label class="form-label">اسم الشعبة</label>
+                                                        <label class="form-label">اسم الدوره</label>
                                                         <input type="text" name="name" class="form-control" required
                                                             value="{{ $class->name }}">
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label class="form-label">وصف الدوره</label>
+                                                        <input type="text" name="description" class="form-control"
+                                                            required value="{{ $class->description }}">
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -95,13 +104,18 @@
                     <h5 class="modal-title" id="addClassModalLabel">إضافة شعبة جديدة</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('classes.store') }}" method="POST">
+                <form action="{{ route('courses.store') }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label class="form-label">اسم الشعبة</label>
+                            <label class="form-label">اسم الدوره</label>
                             <input type="text" name="name" class="form-control" required
-                                placeholder="أدخل اسم الشعبة">
+                                placeholder="أدخل اسم الدوره">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">وصف الدوره</label>
+                            <input type="text" name="description" class="form-control" required
+                                placeholder="أدخل وصف الدوره">
                         </div>
                     </div>
                     <div class="modal-footer">

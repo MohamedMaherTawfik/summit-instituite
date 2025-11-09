@@ -2,8 +2,6 @@
 
 @section('title', 'إضافة ولي امر جديد')
 @section('main_title_content', 'إضافة ولي امر جديد')
-@section('title_content', 'إضافة ولي امر')
-
 
 @section('content')
     <div class="card mt-4 shadow-sm">

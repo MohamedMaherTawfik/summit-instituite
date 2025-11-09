@@ -2,10 +2,6 @@
 
 @section('title', 'تعديل بيانات الطالب')
 @section('main_title_content', 'تعديل بيانات الطالب')
-@section('title_content', 'تعديل')
-@section('link_content')
-    <a href="{{ route('students') }}">جميع الطلاب</a>
-@endsection
 
 @section('content')
     <div class="card mt-4 shadow-sm">

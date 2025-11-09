@@ -2,10 +2,6 @@
 
 @section('title', 'جميع اولياء الامور')
 @section('main_title_content', 'جميع اولياء الامور')
-@section('title_content', 'عرض')
-@section('link_content')
-    <a href="{{ route('parents') }}">جميع اولياء الامور</a>
-@endsection
 
 @section('content')
     <div class="card mt-4 shadow-sm">
@@ -16,7 +12,7 @@
                     <table class="table table-bordered table-striped align-middle">
                         <thead class="table-light">
                             <tr class="text-center">
-                                <th class="text-center">#</th>
+                                <th class="text-center">رقم ولي الأمر</th>
                                 <th class="text-center">الاسم</th>
                                 <th class="text-center">البريد الإلكتروني</th>
 

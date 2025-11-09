@@ -83,4 +83,10 @@ class studentController extends Controller
         $attendances = attendances::where('student_id', $student->id)->get();
         return view('admin.student.attendances', compact('attendances'));
     }
+
+    public function installments(User $student)
+    {
+        $financials = $student->financial;
+        return view('admin.student.installments', compact('financials'));
+    }
 }

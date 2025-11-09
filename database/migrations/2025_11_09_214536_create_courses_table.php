@@ -11,15 +11,11 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('financial_installments', function (Blueprint $table) {
+        Schema::create('courses', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class, 'student_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignIdFor(User::class)->nullable()->constrained()->cascadeOnDelete();
-            $table->string('amount')->nullable();
-            $table->string('full_amount')->nullable();
-            $table->string('payment_number')->nullable();
-            $table->string('date')->nullable();
-            $table->string('status')->default('completed');
+            $table->string('name');
+            $table->string('description');
             $table->timestamps();
         });
     }
@@ -29,6 +25,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('financial_installments');
+        Schema::dropIfExists('courses');
     }
 };

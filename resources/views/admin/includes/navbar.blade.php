@@ -64,10 +64,15 @@
                             <a class="dropdown-item {{ request()->is('dashboard/user*') ? 'active' : '' }}"
                                 href="{{ route('classes') }}">
                                 جميع الشعب</a>
+
+                            <a class="dropdown-item {{ request()->is('dashboard/user*') ? 'active' : '' }}"
+                                href="{{ route('courses') }}">
+                                الدورات</a>
                         @endif
                         <a class="dropdown-item {{ request()->is('dashboard/user*') ? 'active' : '' }}"
                             href="{{ route('attendances') }}">
                             الحضور</a>
+
 
                     </div>
                 </li>
@@ -106,14 +111,12 @@
                     </a>
                     <div class="dropdown-menu ">
                         <a class="dropdown-item {{ request()->is('dashboard/user*') ? 'active' : '' }}"
-                            href="{{ route('students') }}">
+                            href="{{ route('financials') }}">
                             جميع الحسابات </a>
 
                         <a class="dropdown-item {{ request()->is('dashboard/user*') ? 'active' : '' }}"
-                            href="{{ route('students') }}">
+                            href="{{ route('financials.installments') }}">
                             الاقساط </a>
-
-
                     </div>
                 </li>
             @endif

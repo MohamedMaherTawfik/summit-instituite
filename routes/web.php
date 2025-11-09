@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\accountant\financialController;
 use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\admin\ClassesController;
+use App\Http\Controllers\admin\courseController;
 use App\Http\Controllers\admin\dashboardController;
 use App\Http\Controllers\admin\parentController;
 use App\Http\Controllers\admin\teacherController;
@@ -18,13 +20,12 @@ Route::prefix('')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 })->middleware('guest');
 
-
-
 Route::prefix('/dashboard')->middleware(['auth', admin::class])->group(function () {
     Route::get('/', [dashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/students', [studentController::class, 'index'])->name('students');
     Route::get('/students/attendances/{student}', [studentController::class, 'attendances'])->name('students.attendances');
+    Route::get('/students/installments/{student}', [studentController::class, 'installments'])->name('students.installments');
     Route::get('/students/create', [studentController::class, 'create'])->name('students.create');
     Route::post('/students/store', [studentController::class, 'store'])->name('students.store');
     Route::get('/students/edit/{student}', [studentController::class, 'edit'])->name('students.edit');
@@ -54,4 +55,18 @@ Route::prefix('/dashboard')->middleware(['auth', admin::class])->group(function 
     Route::get('/attendances/create', [attendanceController::class, 'index'])->name('attendances.create');
     Route::post('/attendances/store', [attendanceController::class, 'store'])->name('attendances.store');
     Route::delete('/attendances/delete/{attendance}', [attendanceController::class, 'delete'])->name('attendances.delete');
+
+    Route::get('/financials', [financialController::class, 'index'])->name('financials');
+    Route::get('/financials/installments', [financialController::class, 'installments'])->name('financials.installments');
+    Route::get('/financials/create', [financialController::class, 'create'])->name('financials.create');
+    Route::post('/financials/store', [financialController::class, 'store'])->name('financials.store');
+    Route::get('/financials/edit/{financial}', [financialController::class, 'edit'])->name('financials.edit');
+    Route::post('/financials/update/{financial}', [financialController::class, 'update'])->name('financials.update');
+    Route::delete('/financials/delete/{financial}', [financialController::class, 'delete'])->name('financials.delete');
+
+    Route::get('/courses', [courseController::class, 'index'])->name('courses');
+    Route::post('/courses/store', [courseController::class, 'store'])->name('courses.store');
+    Route::post('/courses/update/{course}', [courseController::class, 'update'])->name('courses.update');
+    Route::delete('/courses/delete/{course}', [courseController::class, 'delete'])->name('courses.delete');
+
 });

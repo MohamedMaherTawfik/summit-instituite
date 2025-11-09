@@ -3,9 +3,6 @@
 @section('title', 'جميع الأساتذه')
 @section('main_title_content', 'جميع الأساتذه')
 @section('title_content', 'عرض')
-@section('link_content')
-    <a href="{{ route('teachers') }}">جميع الأساتذه</a>
-@endsection
 
 @section('content')
     <div class="card mt-4 shadow-sm">
@@ -22,7 +19,7 @@
                     <table class="table table-bordered table-striped align-middle">
                         <thead class="table-light">
                             <tr class="text-center">
-                                <th class="text-center">#</th>
+                                <th class="text-center">رقم الاستاذ</th>
                                 <th class="text-center">الاسم</th>
                                 <th class="text-center">البريد الإلكتروني</th>
                                 <th class="text-center">الماده العلميه</th>

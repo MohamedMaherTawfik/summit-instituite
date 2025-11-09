@@ -2,10 +2,6 @@
 
 @section('title', 'جميع الطلاب')
 @section('main_title_content', 'جميع الطلاب')
-@section('title_content', 'عرض')
-@section('link_content')
-    <a href="{{ route('students') }}">جميع الطلاب</a>
-@endsection
 
 @section('content')
     <div class="card mt-4 shadow-sm">
@@ -50,7 +46,7 @@
                     <table class="table table-bordered table-striped align-middle" id="studentsTable">
                         <thead class="table-light">
                             <tr class="text-center">
-                                <th>#</th>
+                                <th>رقم الطالب</th>
                                 <th>الاسم</th>
                                 <th>البريد الإلكتروني</th>
                                 <th>الصف الدراسي</th>
@@ -89,6 +85,8 @@
 
                                         <a href="{{ route('students.addParent', $student->id) }}"
                                             class="btn btn-sm btn-success">اضافه ولي امر</a>
+                                        <a href="{{ route('students.installments', $student->id) }}"
+                                            class="btn btn-sm btn-dark">صفحه التقسيط</a>
                                     </td>
                                 </tr>
                             @endforeach
