@@ -71,23 +71,51 @@
                                     @endif
                                     <td class="text-center">{{ $student->phone ?? '-' }}</td>
                                     <td class="text-center">
-                                        <a href="{{ route('students.attendances', $student->id) }}"
-                                            class="btn btn-sm btn-info text-white">جدول الحضور</a>
-                                        <a href="{{ route('students.edit', $student->id) }}"
-                                            class="btn btn-sm btn-warning text-white">تعديل</a>
+                                        <div class="row g-2">
+                                            <!-- الصف الأول -->
+                                            <div class="col-4">
+                                                <a href="{{ route('students.attendances', $student->id) }}"
+                                                    class="btn btn-sm btn-info w-100 text-white">
+                                                    جدول الحضور
+                                                </a>
+                                            </div>
+                                            <div class="col-4">
+                                                <a href="{{ route('students.edit', $student->id) }}"
+                                                    class="btn btn-sm btn-warning w-100 text-white">
+                                                    تعديل
+                                                </a>
+                                            </div>
+                                            <div class="col-4">
+                                                <form action="{{ route('students.delete', $student->id) }}" method="POST"
+                                                    onsubmit="return confirm('هل أنت متأكد من حذف هذا الطالب؟');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger w-100">حذف</button>
+                                                </form>
+                                            </div>
 
-                                        <form action="{{ route('students.delete', $student->id) }}" method="POST"
-                                            class="d-inline" onsubmit="return confirm('هل أنت متأكد من حذف هذا الطالب؟');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger">حذف</button>
-                                        </form>
-
-                                        <a href="{{ route('students.addParent', $student->id) }}"
-                                            class="btn btn-sm btn-success">اضافه ولي امر</a>
-                                        <a href="{{ route('students.installments', $student->id) }}"
-                                            class="btn btn-sm btn-dark">صفحه التقسيط</a>
+                                            <!-- الصف الثاني -->
+                                            <div class="col-4">
+                                                <a href="{{ route('students.addParent', $student->id) }}"
+                                                    class="btn btn-sm btn-success w-100">
+                                                    اضافه ولي امر
+                                                </a>
+                                            </div>
+                                            <div class="col-4">
+                                                <a href="{{ route('students.installments', $student->id) }}"
+                                                    class="btn btn-sm btn-dark w-100">
+                                                    صفحه التقسيط
+                                                </a>
+                                            </div>
+                                            <div class="col-4">
+                                                <a href="{{ route('notifications', $student->id) }}"
+                                                    class="btn btn-sm btn-secondary w-100">
+                                                    جميع الملاحظات
+                                                </a>
+                                            </div>
+                                        </div>
                                     </td>
+
                                 </tr>
                             @endforeach
                         </tbody>

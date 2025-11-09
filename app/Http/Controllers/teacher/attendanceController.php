@@ -16,13 +16,6 @@ class attendanceController extends Controller
         return view('admin.attendance.index', compact('attendance', 'students'));
     }
 
-    public function create()
-    {
-        $students = User::where('role', 'student')->get();
-        return view('admin.attendance.create', compact('students'));
-    }
-
-
     public function store(Request $request)
     {
         $request->validate([
@@ -40,9 +33,15 @@ class attendanceController extends Controller
         return redirect()->route('attendances')->with('success', 'تم انشاء الحضور بنجاح');
     }
 
+    public function update(Request $request, attendances $attendance)
+    {
+        $data = $request->except('_token');
+        $attendance->update($data);
+        return redirect()->back()->with('success', 'تم تعديل الحضور بنجاح');
+    }
     public function delete(attendances $attendance)
     {
         $attendance->delete();
-        return redirect()->route('attendance')->with('success', 'تم حذف الحضور بنجاح');
+        return redirect()->route('attendances')->with('success', 'تم حذف الحضور بنجاح');
     }
 }

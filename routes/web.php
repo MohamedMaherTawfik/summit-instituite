@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\admin\ClassesController;
 use App\Http\Controllers\admin\courseController;
 use App\Http\Controllers\admin\dashboardController;
+use App\Http\Controllers\admin\notificationController;
 use App\Http\Controllers\admin\parentController;
 use App\Http\Controllers\admin\teacherController;
 use App\Http\Controllers\student\studentController;
@@ -32,6 +33,12 @@ Route::prefix('/dashboard')->middleware(['auth', admin::class])->group(function 
     Route::post('/students/update/{student}', [studentController::class, 'update'])->name('students.update');
     Route::delete('/students/delete/{student}', [studentController::class, 'delete'])->name('students.delete');
 
+    Route::get('/students/notification/{student}', [notificationController::class, 'index'])->name('notifications');
+    Route::post('/students/notification/{student}/store', [notificationController::class, 'store'])->name('notifications.store');
+    Route::post('/students/notification/{parent}/storeParent', [notificationController::class, 'storeParent'])->name('notifications.store.parent');
+    Route::post('/students/notification/{notification}/update', [notificationController::class, 'update'])->name('notifications.update');
+    Route::delete('/students/notification/{notification}/delete', [notificationController::class, 'delete'])->name('notifications.delete');
+
     Route::get('/admin/students/all/parents', [parentController::class, 'index'])->name('parents');
     Route::get('/admin/students/{student}/add-parent', [parentController::class, 'addParent'])->name('students.addParent');
     Route::post('/admin/students/{student}/add-parent', [parentController::class, 'storeParent'])->name('students.store.parent');
@@ -54,6 +61,7 @@ Route::prefix('/dashboard')->middleware(['auth', admin::class])->group(function 
     Route::get('/attendances', [attendanceController::class, 'index'])->name('attendances');
     Route::get('/attendances/create', [attendanceController::class, 'index'])->name('attendances.create');
     Route::post('/attendances/store', [attendanceController::class, 'store'])->name('attendances.store');
+    Route::post('/attendances/update/{attendance}', [attendanceController::class, 'update'])->name('attendances.update');
     Route::delete('/attendances/delete/{attendance}', [attendanceController::class, 'delete'])->name('attendances.delete');
 
     Route::get('/financials', [financialController::class, 'index'])->name('financials');
